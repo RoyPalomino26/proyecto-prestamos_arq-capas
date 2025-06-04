@@ -1,0 +1,29 @@
+services:
+  oracle-xe-db:
+    image: gvenzl/oracle-xe:latest
+    container_name: oracle_xe_db
+    restart: always
+    ports:
+      - "1522:1521"
+    environment:
+      ORACLE_PASSWORD: "Ora1234"
+    volumes:
+      - ./sql:/opt/oracle/oradata
+      - oracle_data:/opt/oracle/oradata 
+
+  postgres-db:
+    image: postgres:17.2
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: 'loans'
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: '123456'
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  oracle_data:
+  postgres_data:
